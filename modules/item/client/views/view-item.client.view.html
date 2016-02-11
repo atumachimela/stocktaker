@@ -1,0 +1,36 @@
+<section ng-controller="ItemsController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="item.title"></h1>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == item.user._id">
+    <a class="btn btn-primary" ui-sref="items.edit({itemId: item._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      ajouté le
+      <span ng-bind="item.created | date:'mediumDate'"></span>
+      par
+      <span ng-bind="item.user.displayName"></span>
+    </em>
+  </small>
+
+</section>
+<section ng-controller="SpecsController" ng-init="find()">
+    <a class="lead" ng-bind="item.itemName" ng-href="/item/{{item._id}}/spec"
+   class="list-group-item"></a>
+     <a class="lead" data-ng-repeat="specification in specifications">
+       <small class="list-group-item-text">
+          <span data-ng-bind"specification.specName"></span>
+          <span data-ng-bind"specification.color"></span>
+        </small>
+        <!-- <h4 class="list-group-item-heading" data-ng-bind"specification."></h4>
+        <p class="list-group-item-text" ng-bind="specifications."></p> -->
+     </a>
+</section>
+  
+
