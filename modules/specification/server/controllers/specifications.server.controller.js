@@ -107,12 +107,19 @@ exports.delete = function(req, res) {
  * List of Specifications for the user
  */
 exports.list = function(req, res) {
-  Specification.find().sort('-created').populate('user', 'displayName').populate('item', 'itemName').exec(function(err, specs) {
+  var item = req.item;
+  console.log('items');
+  console.log(item);
+  console.log('items');
+  Specification.find({item: item}).sort('-created').populate('user', 'displayName').exec(function(err, specs) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log('specification');
+      console.log(specs);
+      console.log('specification');
       res.jsonp(specs);
     }
   });

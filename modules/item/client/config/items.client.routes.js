@@ -32,9 +32,9 @@ angular.module('items').config(['$stateProvider',
           roles: ['user', 'admin']
         }
       })
-      .state('items.createspec', {
-        url: '/:itemId/spec/create',
-        templateUrl: 'modules/item/client/views/create-specification.client.view.html',
+      .state('items.listspec', {
+        url: '/:itemId/spec',
+        templateUrl: 'modules/item/client/views/list-specifications.client.view.html',
         data: {
           roles: ['user', 'admin']
         }

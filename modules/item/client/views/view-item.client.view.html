@@ -21,15 +21,7 @@
 
 </section>
 <section ng-controller="SpecsController" ng-init="find()">
-    <a class="lead" ng-bind="item.itemName" ng-href="/item/{{item._id}}/spec"
-   class="list-group-item"></a>
-     <a class="lead" data-ng-repeat="specification in specifications">
-       <small class="list-group-item-text">
-          <span data-ng-bind"specification.specName"></span>
-          <span data-ng-bind"specification.color"></span>
-        </small>
-        <!-- <h4 class="list-group-item-heading" data-ng-bind"specification."></h4>
-        <p class="list-group-item-text" ng-bind="specifications."></p> -->
+    <a class="lead" ng-bind="item.itemName" ui-sref="items.listspec({itemId: item._id})" class="list-group-item"></a>
      </a>
 </section>
   
