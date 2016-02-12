@@ -7,11 +7,11 @@ angular.module('specifications').config(['$stateProvider',
     $stateProvider
       .state('specifications', {
         abstract: true,
-        url: '/item',
+        url: '/specifications',
         template: '<ui-view/>'
       })
       .state('specifications.list', {
-        url: '/item/:itemId/spec',
+        url: '/:itemId/spec',
         templateUrl: 'modules/item/client/views/list-specifications.client.view.html',
         data: {
           roles: ['user', 'admin']
