@@ -14,7 +14,7 @@ var SpecificationSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  specName: {
+  title: {
     type: String,
     default: '',
     trim: true,
@@ -22,31 +22,19 @@ var SpecificationSchema = new Schema({
   },
   color: {
     type: String,
-     trim: true,
-    required: 'color cannot be blank'
+    required: 'Color is very important'
   },
-  size: {
-    type: Number,
-    required: 'must have size'
-  },
-  stockInit: {
-    type: Number,
-    default: 0,
-    required: 'cannot not be empty'
-  },
-  units: {
+  specType: {
     type: String,
-    required: 'must have unit in cartons or packets'
-  },
-  withdrawal: {
-    type: Number
-  },
-  stockNow: {
-    type: Number
+    required: 'specify type'
   },
   item: {
     type: Schema.ObjectId,
     ref: 'Item'
+  },
+  size: {
+    type: Schema.ObjectId,
+    ref: 'Size'
   },
   user: {
     type: Schema.ObjectId,

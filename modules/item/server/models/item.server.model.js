@@ -24,6 +24,10 @@ var ItemSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Specification' 
   },
+  size: {
+    type: Schema.ObjectId,
+    ref: 'Size' 
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

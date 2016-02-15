@@ -4,14 +4,14 @@
   </div>
   <div class="list-group">
     <a ng-repeat="specification in specifications" class="list-group-item">
-      <small class="list-group-item-text">
+      <!-- <small class="list-group-item-text">
         ajouté le
         <span ng-bind="specification.specName"></span>
         par
         <span ng-bind="specification.user.displayName"></span>
-      </small>
+      </small> -->
       <h4 class="list-group-item-heading" ng-bind="specification.item.itemName"></h4>
-      <p class="list-group-item-text" ng-bind="specification.color"></p>
+      <p class="list-group-item-text" ng-bind="specification.specName"></p>
     </a>
   </div>
   <!-- <div class="alert alert-warning text-center" ng-if="item.$resolved && !item.length">
