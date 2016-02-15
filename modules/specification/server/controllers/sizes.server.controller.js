@@ -155,14 +155,50 @@ var determineFunc = function(req, res) {
           _.forEach(size, function(sizes, key){
           console.log('Init', sizes.stockInit);
           console.log('Now', sizes.stockNow);
-            // if(sizes.stockNow < 7 && sizes.stockNow !== 0) {
-              // sendMail();
               Item.findOne({item: Item._id}).exec(function(err, item){
               console.log('item', item);
               console.log('nows', sizes.stockNow);
                 Specification.findOne({spec: Specification._id}).exec(function(err, spec){
                 console.log('spec', spec);  
-              if (sizes.stockInit <= 500){  
+                if (sizes.stockInit <= 100){  
+                var Message = {
+                  ItemName : item.itemName,
+                  SpecType : spec.specType,
+                  SpecTitle : spec.title,
+                  Color : spec.color,
+                  Nomber : sizes.nomber,
+                  StockInit : sizes.stockInit,
+                  StockNow : sizes.stockNow,
+                  Unit: sizes.units
+                };
+                  console.log('messeage', Message);
+                  transporter.sendMail({
+                  from: 'proserviceinventory@gmail.com',
+                  to: 'proserviceinventory@gmail.com',
+                  subject: 'Re-Stock Alert',
+                  text:'Please' + '\t' + 'only' + '\t' + Message.StockNow+'\t' + Message.Unit + '\t' + 'of' + '\t' + Message.Color +'\t'+ Message.SpecType + '\t' + Message.SpecTitle + '\t'+ Message.ItemName + '\t' + ', size' + '\t' + Message.Nomber
+                });
+              }
+              if (sizes.stockInit <= 50){  
+                var Message = {
+                  ItemName : item.itemName,
+                  SpecType : spec.specType,
+                  SpecTitle : spec.title,
+                  Color : spec.color,
+                  Nomber : sizes.nomber,
+                  StockInit : sizes.stockInit,
+                  StockNow : sizes.stockNow,
+                  Unit: sizes.units
+                };
+                  console.log('messeage', Message);
+                  transporter.sendMail({
+                  from: 'proserviceinventory@gmail.com',
+                  to: 'proserviceinventory@gmail.com',
+                  subject: 'Re-Stock Alert',
+                  text:'Please' + '\t' + 'only' + '\t' + Message.StockNow+'\t' + Message.Unit + '\t' + 'of' + '\t' + Message.Color +'\t'+ Message.SpecType + '\t' + Message.SpecTitle + '\t'+ Message.ItemName + '\t' + ', size' + '\t' + Message.Nomber
+                });
+              }
+              if (sizes.stockInit <= 10){  
                 var Message = {
                   ItemName : item.itemName,
                   SpecType : spec.specType,
