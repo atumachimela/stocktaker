@@ -4,6 +4,7 @@
 angular.module('specifications').factory('Specifications', ['$resource',
   function ($resource) {
     return $resource('api/item/:itemId/spec/:specId', {}, {
+      itemId: '@_id',
       specId: '@_id'
     }, {
       update: {

@@ -12,18 +12,18 @@ angular.module('specifications').config(['$stateProvider',
       })
       .state('specifications.list', {
         url: '/:itemId/spec',
-        templateUrl: 'modules/item/client/views/list-specifications.client.view.html',
+        templateUrl: 'modules/specification/client/views/list-item-specifications.client.view.html',
+        data: {
+          roles: ['user', 'admin']
+        }
+      })
+      .state('specifications.create', {
+        url: '/:itemId/create',
+        templateUrl: 'modules/specification/client/views/create-item-specifications.client.view.html',
         data: {
           roles: ['user', 'admin']
         }
       });
-      // .state('specifications.create', {
-      //   url: '/create',
-      //   templateUrl: 'modules/item/client/views/create-item.client.view.html',
-      //   data: {
-      //     roles: ['user', 'admin']
-      //   }
-      // })
       // .state('specifications.view', {
       //   url: '/:itemId',
       //   templateUrl: 'modules/item/client/views/view-item.client.view.html'

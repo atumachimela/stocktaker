@@ -139,6 +139,7 @@ exports.itemByID = function(req, res, next, id) {
       });
     }
     req.item = item;
+    console.log('reqitem', req.item);
     next();
   });
 };
