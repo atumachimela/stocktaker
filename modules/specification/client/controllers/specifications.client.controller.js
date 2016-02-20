@@ -5,31 +5,36 @@ angular.module('specifications').controller('SpecsController', ['$scope', '$stat
   function ($scope, $stateParams, $location, Authentication, Items, Specifications) {
     $scope.authentication = Authentication;
 
-    // Create new Article
-    // $scope.create = function (isValid) {
-    //   $scope.error = null;
+    //Create new Specification
+    $scope.create = function (isValid) {
+      $scope.error = null;
 
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'itemForm');
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'specForm');
 
-    //     return false;
-    //   }
+        return false;
+      }
 
-    //   // Create new Article object
-    //   var item = new Items({
-    //     itemName: this.itemName,
-    //   });
+      // Create new Article object
+      var specification = new Specifications({
+        title: this.title,
+        specType: this.specType,
+        color: this.color
+      });
+      console.log(specification);
+      // Redirect after save
+      specification.$save(function (response) {
+        console.log('saved', response);
+        $location.path('item/'+ $stateParams.itemId + response._id);
 
-    //   // Redirect after save
-    //   item.$save(function (response) {
-    //     $location.path('item/' + response._id);
-
-    //     // Clear form fields
-    //     $scope.itemName = '';
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
+        // Clear form fields
+        $scope.title = '';
+        $scope.specType = '';
+        $scope.color = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
     // // Remove existing Article
     // $scope.remove = function (item) {

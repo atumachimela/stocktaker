@@ -1,6 +1,6 @@
 <section ng-controller="ItemsController" ng-init="findOne()">
   <div class="page-header">
-    <h1 ng-bind="item.title"></h1>
+    <h1 ng-bind="item.itemName"></h1>
   </div>
   <div class="pull-right" ng-show="authentication.user._id == item.user._id">
     <a class="btn btn-primary" ui-sref="items.edit({itemId: item._id})">
@@ -18,11 +18,27 @@
       <span ng-bind="item.user.displayName"></span>
     </em>
   </small>
-
+  <div class="page-header">
+    <h5>{{item.itemName}} Specifications</h5>
+  </div>
 </section>
+<br><br>
 <section ng-controller="SpecsController" ng-init="find()">
-    <a class="lead" ng-bind="item.itemName" ui-sref="items.listspec({itemId: item._id})" class="list-group-item"></a>
-     </a>
+  <div class="list-group" ng-repeat="specification in specifications">
+    <a  class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="specification.title"></h4>
+      <small>
+        <em class="text-muted">
+        <label>Type</label> :<span ng-bind="specification.specType"></span>
+         <label>Color</label>: <span ng-bind="specification.color"></span>
+        </em>
+      </small>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="specifications.$resolved && !specifications.length">
+    Aucun spécifications encore,<a ui-sref="specifications.create">pourquoi ne pas un</a>?
+  </div>
+  <div class="alert alert-warning text-center" ng-if="specifications.$resolved && specifications.length">
+    Ajouter plus <a ui-sref="specifications.create({itemId: item._id})">de spécifications</a>?
+  </div>
 </section>
-  
-

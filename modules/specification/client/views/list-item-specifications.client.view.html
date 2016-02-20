@@ -1,0 +1,15 @@
+<section ng-controller="SpecsController" ng-init="find()">
+  <div class="page-header">
+    <h1></h1>
+  </div>
+  <div class="list-group" ng-repeat="specification in specifications">
+    <a  class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="specification.title"></h4>
+      <p class="list-group-item-text" ng-bind="specification.specType"></p>
+      <p class="list-group-item-text" ng-bind="specification.color"></p>
+    </a>
+  </div>
+  <!-- <div class="alert alert-warning text-center" ng-if="item.$resolved && !item.length">
+    Aucun articles encore,<a ui-sref="items.create">pourquoi ne pas un</a>?
+  </div> -->
+</section>
