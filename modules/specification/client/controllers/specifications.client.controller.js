@@ -19,9 +19,10 @@ angular.module('specifications').controller('SpecsController', ['$scope', '$stat
       var specification = new Specifications({
         title: this.title,
         specType: this.specType,
-        color: this.color
+        color: this.color,
+        itemId: $stateParams.itemId
       });
-      console.log(specification);
+      
       // Redirect after save
       specification.$save(function (response) {
         console.log('saved', response);
