@@ -12,7 +12,7 @@ angular.module('specifications').config(['$stateProvider',
       })
       .state('specifications.list', {
         url: '/:itemId/spec',
-        templateUrl: 'modules/specification/client/views/list-item-specifications.client.view.html',
+        templateUrl: 'modules/item/client/views/view-item.client.view.html',
         data: {
           roles: ['user', 'admin']
         }
@@ -23,17 +23,20 @@ angular.module('specifications').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('specifications.view', {
+        url: '/:itemId/spec/:specId',
+        templateUrl: 'modules/specification/client/views/view-item-specifications.client.view.html',
+        data: {
+          roles: ['user', 'admin']
+        }
+      })
+      .state('specifications.edit', {
+        url: '/:itemId/spec/:specId/edit',
+        templateUrl: 'modules/specification/client/views/edit-item-specifications.client.view.html',
+        data: {
+          roles: ['user', 'admin']
+        }
       });
-      // .state('specifications.view', {
-      //   url: '/:itemId',
-      //   templateUrl: 'modules/item/client/views/view-item.client.view.html'
-      // })
-      // .state('specifications.edit', {
-      //   url: '/:itemId/edit',
-      //   templateUrl: 'modules/item/client/views/edit-item.client.view.html',
-      //   data: {
-      //     roles: ['user', 'admin']
-      //   }
-      // });
   }
 ]);

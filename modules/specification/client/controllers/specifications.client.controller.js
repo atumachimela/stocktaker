@@ -25,8 +25,7 @@ angular.module('specifications').controller('SpecsController', ['$scope', '$stat
       
       // Redirect after save
       specification.$save(function (response) {
-        console.log('saved', response);
-        $location.path('item/'+ $stateParams.itemId + response._id);
+        $location.url('item/'+ $stateParams.itemId);
 
         // Clear form fields
         $scope.title = '';
@@ -37,57 +36,56 @@ angular.module('specifications').controller('SpecsController', ['$scope', '$stat
       });
     };
 
-    // // Remove existing Article
-    // $scope.remove = function (item) {
-    //   if (item) {
-    //     item.$remove();
+    // Remove existing Specification
+    $scope.remove = function (specification) {
 
-    //     for (var i in $scope.items) {
-    //       if ($scope.items[i] === item) {
-    //         $scope.items.splice(i, 1);
-    //       }
-    //     }
-    //   } else {
-    //     $scope.item.$remove(function () {
-    //       $location.path('items');
-    //     });
-    //   }
-    // };
+      if (specification) {
+        specification.$remove();
 
-    // // Update existing Article
-    // $scope.update = function (isValid) {
-    //   $scope.error = null;
-
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'itemForm');
-
-    //     return false;
-    //   }
-
-    //   var item = $scope.item;
-
-    //   item.$update(function () {
-    //     $location.path('items/' + item._id);
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
-
-    // Find a list of Articles
-    $scope.find = function () {
-        $scope.item = Items.get({itemId: $stateParams.itemId});
-        console.log('hehe', $scope.item);
-        console.log('hee', $stateParams.itemId);
-        $scope.specifications = Specifications.query({itemId: $stateParams.itemId});
-      console.log('specs', $scope.specifications);
+        for (var i in $scope.specifications) {
+          if ($scope.specifications[i] === specification) {
+            $scope.specification.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.specification.$remove(function () {
+          $location.url('item/'+ $stateParams.itemId);
+        });
+      }
     };
 
-    // // Find existing Article
-    // $scope.findOne = function () {
-    //   $scope.item = Items.get({
-    //     itemId: $stateParams.itemId
-    //   });
-    //   console.log($scope.item);
-    // };
+    // // Update existing Specification
+    $scope.update = function (isValid) {
+      $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'specForm');
+
+        return false;
+      }
+        console.log('update', $scope.specification);
+      var specification = $scope.specification;
+
+      specification.$update(function () {
+          $location.url('item/'+ $stateParams.itemId);        
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
+    // Find a list of Specifications
+    $scope.find = function () {
+        $scope.item = Items.get({itemId: $stateParams.itemId});
+        $scope.specifications = Specifications.query({itemId: $stateParams.itemId});
+
+    };
+
+    // // Find existing Specification
+    $scope.findOne = function () {
+      $scope.specification = Specifications.get({
+        itemId: $stateParams.itemId,
+        specId: $stateParams.specId
+      });
+    };
   }
 ]);

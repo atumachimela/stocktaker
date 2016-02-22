@@ -25,7 +25,7 @@
 <br><br>
 <section ng-controller="SpecsController" ng-init="find()">
   <div class="list-group" ng-repeat="specification in specifications">
-    <a  class="list-group-item">
+    <a  class="list-group-item" ui-sref="specifications.view({itemId: specification.item, specId: specification._id})" >
       <h4 class="list-group-item-heading" ng-bind="specification.title"></h4>
       <small>
         <em class="text-muted">

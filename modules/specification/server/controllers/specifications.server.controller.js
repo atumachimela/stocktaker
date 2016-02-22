@@ -71,7 +71,6 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
   var spec = req.specName;
-
   spec.remove(function(err) {
     if (err) {
       return res.status(400).send({
@@ -112,7 +111,7 @@ exports.specByID = function(req, res, next, id) {
       message: 'Item specification name is invalid'
     });
   }
-  Specification.findById(req.params.specId).populate('user', 'displayName').populate('item', 'itemName').exec(function(err, specName) {
+  Specification.findById(req.params.specId).populate('user', 'displayName').exec(function(err, specName) {
     if (err) return next(err);
     if (!specName) {
       return res.status(404).send({

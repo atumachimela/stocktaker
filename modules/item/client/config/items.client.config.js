@@ -22,11 +22,5 @@ angular.module('items').run(['Menus',
       state: 'items.create'
     });
 
-    // Add the dropdown create specification
-    Menus.addSubMenuItem('topbar', 'items', {
-      title: 'Add Specification',
-      state: 'items.createspec'
-    });
-
   }
 ]);
