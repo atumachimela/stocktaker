@@ -1,0 +1,20 @@
+<section ng-controller="SpecsController" ng-init="findOne()">
+  <div class="page-header">
+    <h4 ng-bind="specification.title"></h4>
+    <small>
+      <em class="text-muted">
+      <label>Type</label> :<span ng-bind="specification.specType"></span>
+       <label>Color</label>: <span ng-bind="specification.color"></span>
+      </em>
+    </small>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == specification.user._id">
+    <a class="btn btn-primary" ui-sref="specifications.edit({itemId: specification.item, specId: specification._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+</section>
+
