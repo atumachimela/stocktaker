@@ -1,0 +1,41 @@
+<section ng-controller="SizesController" ng-init="findOne()">
+  <div class="page-header">
+    <h4 ng-bind="size.nomber"></h4>
+    <small>
+      <em class="text-muted">
+      <label>Curret Stock</label> :<span ng-bind="size.stockInit"></span>
+       <label></label><span ng-bind="size.units"></span>
+      </em>
+    </small>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == size.user._id">
+    <a class="btn btn-primary">
+    <!-- ui-sref="sizes.edit({itemId: size.item, specId: ._id}) -->
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+</section>
+<!-- <br><br>
+<section ng-controller="SizesController" ng-init="find()">
+  <div class="list-group" ng-repeat="size in sizes">
+    <a  class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="size.nomber"></h4>
+      <small>
+        <em class="text-muted">
+        <label>Current Stock</label> :<span ng-bind="size.stockInit"></span>
+         <label></label><span ng-bind="size.units"></span>
+        </em>
+      </small>
+    </a>
+  </div>
+  <div>
+    <div class="alert alert-warning text-center">
+        Ajouter plus <a ui-sref="sizes.create({itemId: sizes[0].item, specId: sizes[0].specName})">de tailles</a>?
+    </div>
+  </div>
+</section>
+
+ -->
