@@ -18,3 +18,28 @@
   </div>
 </section>
 
+<section ng-controller="SizesController" ng-init="find()">
+  <div class="page-header">
+    <h1>liste des tailles</h1>
+  </div>
+  <div class="list-group" ng-repeat="size in sizes">
+    <a  class="list-group-item" ui-sref="sizes.view({itemId: size.item, specId: size.specName, sizeId: size._id})">
+      <label>Taille</label>:<h4 class="list-group-item-heading" ng-bind="size.nomber"></h4>
+      <small>
+        <em class="text-muted">
+        <label>Stock initial</label> :<span ng-bind="size.stockInit"></span>
+         <label></label><span ng-bind="size.units"></span>
+        </em>
+      </small>
+      <small ng-show="size.stockNow !== 0">
+        <em class="text-muted">
+        <label>Stock Actuel</label> :<span ng-bind="size.stockNow"></span>
+         <label></label><span ng-bind="size.units"></span>
+        </em>
+      </small>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center">
+    <a ui-sref="sizes.create({itemId: sizes[0].item, specId: sizes[0].specName})">ajouter de nouvelles dimensions</a>
+  </div>
+</section>

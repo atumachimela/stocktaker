@@ -17,7 +17,6 @@ var path = require('path'),
  */
 
 exports.create = function(req, res) {
-  console.log('user', req.user);
    Size.findOne({size: req.body.nomber}).exec(function(err, size){      
       if(size){
         return res.status(400).send({
@@ -90,8 +89,7 @@ exports.list = function(req, res) {
   var item = req.item,
       spec = req.specName,
       size = req.size;
-      console.log(spec._id);
-  Size.findById(req.params.specId).sort('-created').populate('user', 'displayName').exec(function(err, sizes) {
+  Size.find().sort('-created').populate('user', 'displayName').exec(function(err, sizes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -113,14 +111,10 @@ withdraw from spec
 
  exports.withdrawFromSpec = function(req, res){
   var currentSize = req.params.sizeId;
-  console.log('params', currentSize);
   var stockInit = req.size.stockInit;
-  console.log('req', req.size.stockInit);
   var amountWithdrawn = req.body.withdrawal;
-  console.log('withdrawal', amountWithdrawn);
   // subtract amountWithdwan from stockInit 
   var currentStock = stockInit - amountWithdrawn;
-  console.log('current stock', currentStock);
   req.size.stockNow = currentStock;
   req.size.save(function(err){
     if (err) {
@@ -128,7 +122,6 @@ withdraw from spec
               message: 'unable to save withdrawal'
           });
         } else {
-        console.log('currentStock', req.size.stockNow);
           res.jsonp(req.size);
         }
   });
@@ -151,16 +144,10 @@ var determineFunc = function(req, res) {
         message: 'Noting found'
           });
       } else {
-          console.log('1', size);
           _.forEach(size, function(sizes, key){
-          console.log('Init', sizes.stockInit);
-          console.log('Now', sizes.stockNow);
               Item.findOne({item: Item._id}).exec(function(err, item){
-              console.log('item', item);
-              console.log('nows', sizes.stockNow);
                 Specification.findOne({spec: Specification._id}).exec(function(err, spec){
-                console.log('spec', spec);  
-                if (sizes.stockInit <= 100){  
+                if (sizes.stockNow <= 100){  
                 var Message = {
                   ItemName : item.itemName,
                   SpecType : spec.specType,
@@ -171,7 +158,6 @@ var determineFunc = function(req, res) {
                   StockNow : sizes.stockNow,
                   Unit: sizes.units
                 };
-                  console.log('messeage', Message);
                   transporter.sendMail({
                   from: 'proserviceinventory@gmail.com',
                   to: 'proserviceinventory@gmail.com',
@@ -179,7 +165,7 @@ var determineFunc = function(req, res) {
                   text:'Please' + '\t' + 'only' + '\t' + Message.StockNow+'\t' + Message.Unit + '\t' + 'of' + '\t' + Message.Color +'\t'+ Message.SpecType + '\t' + Message.SpecTitle + '\t'+ Message.ItemName + '\t' + ', size' + '\t' + Message.Nomber
                 });
               }
-              if (sizes.stockInit <= 50){  
+              if (sizes.stockNow <= 50){  
                 var Message = {
                   ItemName : item.itemName,
                   SpecType : spec.specType,
@@ -190,7 +176,6 @@ var determineFunc = function(req, res) {
                   StockNow : sizes.stockNow,
                   Unit: sizes.units
                 };
-                  console.log('messeage', Message);
                   transporter.sendMail({
                   from: 'proserviceinventory@gmail.com',
                   to: 'proserviceinventory@gmail.com',
@@ -198,7 +183,7 @@ var determineFunc = function(req, res) {
                   text:'Please' + '\t' + 'only' + '\t' + Message.StockNow+'\t' + Message.Unit + '\t' + 'of' + '\t' + Message.Color +'\t'+ Message.SpecType + '\t' + Message.SpecTitle + '\t'+ Message.ItemName + '\t' + ', size' + '\t' + Message.Nomber
                 });
               }
-              if (sizes.stockInit <= 10){  
+              if (sizes.stockNow <= 10){  
                 var Message = {
                   ItemName : item.itemName,
                   SpecType : spec.specType,
@@ -209,7 +194,6 @@ var determineFunc = function(req, res) {
                   StockNow : sizes.stockNow,
                   Unit: sizes.units
                 };
-                  console.log('messeage', Message);
                   transporter.sendMail({
                   from: 'proserviceinventory@gmail.com',
                   to: 'proserviceinventory@gmail.com',
@@ -217,7 +201,7 @@ var determineFunc = function(req, res) {
                   text:'Please' + '\t' + 'only' + '\t' + Message.StockNow+'\t' + Message.Unit + '\t' + 'of' + '\t' + Message.Color +'\t'+ Message.SpecType + '\t' + Message.SpecTitle + '\t'+ Message.ItemName + '\t' + ', size' + '\t' + Message.Nomber
                 });
               }
-              if (sizes.stockInit === 0){
+              if (sizes.stockNow === 0){
                     var Message = {
                       ItemName: item.itemName,
                       SpecType: spec.specType,
@@ -298,8 +282,6 @@ exports.sizeByID = function(req, res, next, id) {
  * specification authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  console.log('sizeId', req.size.user.id);
-  console.log('userId', req.user.id);
   if (req.size.user.id !== req.user.id) {
     return res.status(403).send('User is not authorized');
   }

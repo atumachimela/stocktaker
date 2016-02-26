@@ -17,9 +17,7 @@ var path = require('path'),
 exports.create = function(req, res) {
   
  Item.findOne({itemName: req.body.itemName}).exec(function(err, item){
-  console.log('found items', item);
     if(item){
-     console.log('error');
       return res.status(400).send({
       message: 'Item name exist'
       });
@@ -97,48 +95,6 @@ exports.list = function(req, res) {
   });
 };
 
-/**
-Get all specification of an Item*
-**/
-// exports.list = function(req, res) {
-//   Item.findOne({item: req.body.itemName}).sort('created').populate('user', 'displayName').exec(function(err, item){
-//       Specification.find({}).sort('-created').populate('user', 'displayName').exec(function(err, specs) {
-
-//   });
-//   Specification.find().sort('-created').populate('user', 'displayName').exec(function(err, specs) {
-//     if (err) {
-//       return res.status(400).send({
-//         message: errorHandler.getErrorMessage(err)
-//       });
-//     } else {
-//       res.jsonp(specs);
-//     }
-//   });
-// };
-/**
-
-
-
-Get a specification of an Item
-**/
-
-
-/***
-list all latest additions to the Item DB
-**/
-
-// exports.listLatestItems = function(res, req){
-
-//   Item.find().sort('-created').populate('user', 'displayName').exec(function(err, items){
-//      latestItem = (items.created <= 
-//     if(err){
-//       return res.status(400).send({
-//         message: 'New latest Item in stock'
-//       });
-//     }
-
-//   });
-// };
 /**
  * item middlewares
  */

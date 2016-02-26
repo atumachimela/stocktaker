@@ -4,7 +4,7 @@
 angular.module('specifications').controller('SizesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Items', 'Specifications', 'Sizes',
   function ($scope, $stateParams, $location, Authentication, Items, Specifications, Sizes) {
     $scope.authentication = Authentication;
-
+    $scope.hideWithdrawal = true;
     //Create new Specification
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -15,13 +15,13 @@ angular.module('specifications').controller('SizesController', ['$scope', '$stat
         return false;
       }
 
-      // Create new Article object
+      // Create new size
       var size = new Sizes({
         nomber: this.nomber,
         stockInit: this.stockInit,
         units: this.units,
         itemId: $stateParams.itemId,
-        specId: $stateParams.specId,
+        specId: $stateParams.specId
       });
       // Redirect after save
       size.$save(function (response) {
@@ -36,65 +36,78 @@ angular.module('specifications').controller('SizesController', ['$scope', '$stat
       });
     };
 
-    // Remove existing Specification
-    // $scope.remove = function (specification) {
+    // Remove an existing Specified size
+    $scope.remove = function (size) {
 
-    //   if (specification) {
-    //     specification.$remove();
+      if (size) {
+        size.$remove();
 
-    //     for (var i in $scope.specifications) {
-    //       if ($scope.specifications[i] === specification) {
-    //         $scope.specification.splice(i, 1);
-    //       }
-    //     }
-    //   } else {
-    //     $scope.specification.$remove(function () {
-    //       $location.url('item/'+ $stateParams.itemId);
-    //     });
-    //   }
-    // };
+        for (var i in $scope.sizes) {
+          if ($scope.sizes[i] === size) {
+            $scope.size.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.size.$remove(function () {
+          $location.url('specifications/'+ $stateParams.itemId +'/spec/'+ $stateParams.specId);
+        });
+      }
+    };
 
-    // // Update existing Specification
-    // $scope.update = function (isValid) {
-    //   $scope.error = null;
+    // // Update existing Specified size
+    $scope.update = function (isValid) {
+      $scope.error = null;
 
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'specForm');
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'sizeForm');
 
-    //     return false;
-    //   }
-    //     console.log('update', $scope.specification);
-    //   var specification = $scope.specification;
+        return false;
+      }
+      var size = $scope.size;
 
-    //   specification.$update(function () {
-    //       $location.url('item/'+ $stateParams.itemId);        
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
+      size.$update(function () {
+        $location.url('specifications/'+ $stateParams.itemId +'/spec/'+ $stateParams.specId);
+          }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
-    // Find a list of Sizes
+    // Find a list of specified sizes
     $scope.find = function () {
         $scope.item = Items.get({itemId: $stateParams.itemId});
         $scope.specifications = Specifications.query({itemId: $stateParams.itemId});
         $scope.sizes = Sizes.query({itemId: $stateParams.itemId, specId: $stateParams.specId});
     };
 
-    // // Find existing Specification
+    // // Find an existing Specified size
     $scope.findOne = function () {
-      $scope.sizes = Sizes.query({
+      $scope.size = Sizes.get({
         itemId: $stateParams.itemId,
-        specId: $stateParams.specId
+        specId: $stateParams.specId,
+        sizeId: $stateParams.sizeId
       });
-      console.log('A size', $scope.sizes);
-      console.log($stateParams.sizeId);
-      // forEach($scope.sizes, function(size, key){
-      //   console.log(size);
-      //   console.log($scope.sizes);
-      //     // if(size._id.toString() == $stateParams.sizeId.toString()){
-      //     //   console.log(size);
-      //     // }
-      // });
+    };
+
+    $scope.openWithdraw = function(){
+      $scope.hideWithdrawal = false;
+    };
+
+    $scope.withdrawal = function(isValid){
+      $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'sizeForm');
+
+        return false;
+      }
+      $scope.size.stockNow = $scope.size.stockInit - $scope.size.withdrawal;
+      var size = $scope.size;
+      size.$update(function () {
+        $scope.size.withdrawal = '';
+        $location.url('specifications/'+ $stateParams.itemId +'/spec/'+ $stateParams.specId);
+          }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
     };
   }
 ]);

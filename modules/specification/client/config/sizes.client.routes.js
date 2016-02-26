@@ -11,8 +11,8 @@ angular.module('specifications').config(['$stateProvider',
         template: '<ui-view/>'
       })
       .state('sizes.list', {
-        url: '/:itemId/spec/:specId/',
-        templateUrl: 'modules/item/client/views/view-item.client.view.html',
+        url: '/:itemId/spec/:specId',
+        templateUrl: 'modules/specification/client/views/view-item.specifications.client.view.html',
         data: {
           roles: ['user', 'admin']
         }
@@ -30,13 +30,13 @@ angular.module('specifications').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('sizes.edit', {
+        url: '/:itemId/spec/:specId/size/:sizeId/edit',
+        templateUrl: 'modules/specification/client/views/edit-item-specification-size.client.view.html',
+          data:{
+            roles: ['user', 'admin']
+        }
       });
-      // .state('specifications.edit', {
-      //   url: '/:itemId/spec/:specId/edit',
-      //   templateUrl: 'modules/specification/client/views/edit-item-specifications.client.view.html',
-      //   data: {
-      //     roles: ['user', 'admin']
-      //   }
-      // });
   }
 ]);

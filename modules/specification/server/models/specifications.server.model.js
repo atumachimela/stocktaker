@@ -18,11 +18,13 @@ var SpecificationSchema = new Schema({
     type: String,
     default: '',
     trim: true,
+    unique: true,
     required: 'category cannot be blank'
   },
   color: {
     type: String,
-    required: 'Color is very important'
+    required: 'Color is very important',
+    unique: true
   },
   specType: {
     type: String,

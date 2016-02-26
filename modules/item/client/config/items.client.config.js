@@ -12,13 +12,13 @@ angular.module('items').run(['Menus',
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'items', {
-      title: 'List Items',
+      title: 'Liste des articles ',
       state: 'items.list'
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'items', {
-      title: 'Create Items',
+      title: 'Créer de Nouveaux Articles',
       state: 'items.create'
     });
 

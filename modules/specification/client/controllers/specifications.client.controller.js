@@ -63,7 +63,6 @@ angular.module('specifications').controller('SpecsController', ['$scope', '$stat
 
         return false;
       }
-        console.log('update', $scope.specification);
       var specification = $scope.specification;
 
       specification.$update(function () {
