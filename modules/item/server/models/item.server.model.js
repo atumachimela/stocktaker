@@ -18,6 +18,7 @@ var ItemSchema = new Schema({
     type: String,
     default: '',
     trim: true,
+    unique: true,
     required: 'Item name cannot be blank'
   },
   specifications: {

@@ -77,7 +77,6 @@ angular.module('items').controller('ItemsController', ['$scope', '$stateParams',
       $scope.item = Items.get({
         itemId: $stateParams.itemId
       });
-      console.log($scope.item);
     };
   }
 ]);

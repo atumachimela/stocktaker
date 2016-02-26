@@ -16,11 +16,12 @@ var SizeSchema = new Schema({
   },
   nomber: {
     type: Number,
-    required: 'must have size'
+    required: 'must have size',
+    unique: true
   },
   stockInit: {
     type: Number,
-    default: 0,
+    min: 0,
     required: 'cannot not be empty'
   },
   units: {
@@ -31,7 +32,9 @@ var SizeSchema = new Schema({
     type: Number
   },
   stockNow: {
-    type: Number
+    type: Number,
+    default: 0,
+    min: 0
   },
   specName: {
     type: Schema.ObjectId,

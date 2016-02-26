@@ -1,0 +1,39 @@
+<section ng-controller="SizesController" ng-init="findOne()">
+  <div class="page-header">
+    <h1>taille de modifier</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="sizeForm" class="form-horizontal" ng-submit="update(sizeForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Taille</label>
+          <input name="name" type="text" ng-model="size.nomber" id="title" class="form-control" placeholder="Nombre de cartons, paquets ou boîtes" required>
+          <div ng-messages="sizeForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">spécification de taille est nécessaire</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="title">Stock Initial</label>
+          <input name="name" type="text" ng-model="size.stockInit" id="title" class="form-control" placeholder="Numéro de stock initial" required>
+          <div ng-messages="sizeForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">spécification de taille est nécessaire</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="title">Unités</label>
+          <input name="name" type="text" ng-model="size.units" id="title" class="form-control" placeholder="unités: carton, paquets, rangées" required>
+          <div ng-messages="sizeForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">spécification de taille est nécessaire</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <input type="submit" value="modificateur" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

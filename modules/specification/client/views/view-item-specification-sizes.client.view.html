@@ -1,0 +1,52 @@
+<section ng-controller="SizesController" ng-init="findOne()">
+  <div class="page-header">
+    <h4>
+    <label>Taille</label>:<span ng-bind="size.nomber"></span>
+    </h4>
+    <small>
+      <em class="text-muted">
+      <label>Stock initial</label> :<span ng-bind="size.stockInit"></span>
+       <label></label><span ng-bind="size.units"></span>
+      </em>
+    </small>
+    <small ng-show="size.stockNow !== 0">
+      <em class="text-muted">
+      <label>Stock Actuel</label> :<span ng-bind="size.stockNow"></span>
+       <label></label><span ng-bind="size.units"></span>
+      </em>
+    </small>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == size.user._id">
+    <a class="btn btn-primary" ui-sref="sizes.edit({itemId: size.item._id, specId: size.specName._id, sizeId: size._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+    <br><br>
+  <div>
+    <button class="btn btn-primary" data-ng-click="openWithdraw()"> effectuer un retrait de l'inventaire
+    </button>
+  </div>
+  <br><br>
+  <div class="col-md-12" data-ng-hide="hideWithdrawal">
+    <form name="sizeForm" class="form-horizontal" ng-submit="withdrawal(sizeForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">le retrait</label>
+          <input name="name" type="text" ng-model="size.withdrawal" id="title" class="form-control" placeholder="Nombre de cartons, paquets ou boîtes" required>
+          <div ng-messages="sizeForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">spécification de taille est nécessaire</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="se désister" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
