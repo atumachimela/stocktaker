@@ -32,20 +32,5 @@ angular.module('items').config(['$stateProvider',
           roles: ['user', 'admin']
         }
       });
-
-      // .state('items.createspec', {
-      //   url: '/:itemId/createspec',
-      //   templateUrl: 'modules/specification/client/views/create-item-specifications.client.view.html',
-      //   data: {
-      //     roles: ['user', 'admin']
-      //   }
-      // });
-      // .state('items.listspec', {
-      //   url: '/:itemId/spec/',
-      //   templateUrl: 'modules/item/client/views/list-specifications.client.view.html',
-      //   data: {
-      //     roles: ['user', 'admin']
-      //   }
-      // });
   }
 ]);
